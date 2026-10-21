@@ -31,6 +31,22 @@
   backBtn.addEventListener('click', () => showStep(Math.max(current - 1, 0)));
   const val = id => document.getElementById(id).value.trim();
 
+  // ---- Theme toggle (top right): shows the theme you would switch to; remembered between visits ----
+  (() => {
+    const btn = document.getElementById('themeToggle');
+    if (!btn) return;
+    const SUN = '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="5" fill="#f5b72a"/><g stroke="#f5b72a" stroke-width="2" stroke-linecap="round"><path d="M12 1.5v3M12 19.5v3M1.5 12h3M19.5 12h3M4.6 4.6l2.1 2.1M17.3 17.3l2.1 2.1M4.6 19.4l2.1-2.1M17.3 6.7l2.1-2.1"/></g></svg>';
+    const MOON = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11z" fill="#f0a23a"/></svg>';
+    const apply = theme => {
+      document.documentElement.setAttribute('data-theme', theme);
+      // the button offers the OTHER theme: "Light" while dark is active, "Dark" while light is active
+      btn.innerHTML = theme === 'dark' ? SUN + 'Light' : MOON + 'Dark';
+      try { localStorage.setItem('theme', theme); } catch (e) { /* storage unavailable: keep the choice for this visit only */ }
+    };
+    apply(document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light');
+    btn.addEventListener('click', () => apply(document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'));
+  })();
+
   // ---- Row editors: one card per table row, with a field per column ----
   // <div class="row-editor" data-store="textareaId" data-cols="A|B|C"> reads its rows from the hidden
   // textarea (one "a | b | c" line per row) and writes them back on every edit, so the generators keep
@@ -1326,7 +1342,7 @@
       });
       const blob = await Packer.toBlob(doc);
       const url = URL.createObjectURL(blob);
-      const a = document.createElement('a'); a.href = url; a.download = 'Application_Monitoring_Editable_Pages_1-9.docx'; document.body.appendChild(a); a.click(); a.remove();
+      const a = document.createElement('a'); a.href = url; a.download = 'Sign-off Template for Monitoring (Preventive).docx'; document.body.appendChild(a); a.click(); a.remove();
       setTimeout(() => URL.revokeObjectURL(url), 30000);
       status.textContent = 'Your editable DOCX download has started. Check the generated file in Word and adjust page breaks if your Word environment renders differently.';
     } catch (err) {

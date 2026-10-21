@@ -4,11 +4,21 @@
   <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Preventive Monitoring Template</title>
   <link rel="stylesheet" href="styles.css">
+  <script>
+    // Apply the saved theme before the page paints (no flash); falls back to the system setting
+    (function () {
+      var t = null;
+      try { t = localStorage.getItem('theme'); } catch (e) {}
+      if (!t) t = window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-theme', t);
+    })();
+  </script>
   <script src="assets/docx.umd.js"></script>
   <script src="assets/logo.js"></script>
 </head>
 <body>
-<header class="site-header"><div class="brand-mark">PM</div><div><p class="eyebrow">DOCUMENT TOOL</p><h1>Preventive Monitoring Template</h1></div></header>
+<header class="site-header"><div class="brand-mark">PM</div><div><p class="eyebrow">DOCUMENT TOOL</p><h1>Preventive Monitoring Template</h1></div>
+  <button type="button" id="themeToggle" class="theme-toggle" aria-label="Switch colour theme"></button></header>
 <main class="layout">
   <section class="intro"><h2>Generate a Word document</h2><p>Use the wizard to create an editable Word document with your own cover details.</p></section>
   <section class="card wizard-card"><div class="wizard-head"><div><p class="eyebrow">EDITABLE VERSION</p><h3>Document wizard</h3></div><div class="step-count" id="stepCount">Step 1 of 14</div></div>
