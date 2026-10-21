@@ -170,14 +170,13 @@ Artefact(s) | Screenshots that provide key information and status of the compone
       <section class="wizard-step" data-step="8"><h4>A. Essential</h4>
         <label>Date of Execution<input id="execValue" type="date"></label>
         <div class="row-editor-head"><strong>Table rows</strong></div>
-        <div id="execRowsEditor" class="row-editor" data-store="execRows" data-box="8-9" data-cols="SN|Name / Location|Server(s) / Component(s)|Health Status|Remark|No errors found|Errors found|ServiceNow Ticket No|Duration From|Duration To" data-rows="1|3|3|3|3|1|1|1|1|1" data-checks="5|6" data-datetimes="8|9" data-selects='{"1":[["{{Choose an item.}}","Choose an item."],["Dynatrace","Dynatrace"],["App log files in servers","App log files in servers"]],"3":[["{{Choose an item.}}","Choose an item."],["Good (No Error Found)","Good (No Error Found)"],["Fair (Minor Errors Found)","Fair (Minor Errors Found)"],["Bad (Errors Found)","Bad (Errors Found)"],["Unknown","Unknown"]]}' data-group="5:Errors &amp; artefact block" data-defaults="|{{Choose an item.}}||{{Choose an item.}}||||||"></div>
-        <button type="button" class="button secondary row-add" data-editor="execRowsEditor">+ Add row</button>
-        <textarea id="execRows" hidden>1 | {{Choose an item.}} |  | {{Choose an item.}} |  |  |  |  |  | 
- | {{Choose an item.}} |  | {{Choose an item.}} |  |  |  |  |  | 
-2 |  |  | {{Choose an item.}} |  |  |  |  |  | 
-3 | {{Choose an item.}} |  | {{Choose an item.}} |  |  |  |  |  | 
- | {{Choose an item.}} |  | {{Choose an item.}} |  |  |  |  |  | 
-4 |  |  | {{Choose an item.}} |  |  |  |  |  | </textarea>
+        <div id="execRowsEditor" class="row-editor" data-store="execRows" data-titles='["Application Logs","Application Logs","Dynatrace - Problem Alerts","Interface Logs","Interface Logs","DB Replication"]' data-fixed data-box="7-8" data-cols="Name / Location|Server(s) / Component(s)|Health Status|Remark|No errors found|Errors found|ServiceNow Ticket No|Duration From|Duration To" data-rows="3|3|3|3|1|1|1|1|1" data-checks="4|5" data-datetimes="7|8" data-selects='{"0":[["{{Choose an item.}}","Choose an item."],["Dynatrace","Dynatrace"],["App log files in servers","App log files in servers"],["Dynatrace APM","Dynatrace APM"],["Not Applicable","Not Applicable"]],"2":[["{{Choose an item.}}","Choose an item."],["Good (No Error Found)","Good (No Error Found)"],["Fair (Minor Errors Found)","Fair (Minor Errors Found)"],["Bad (Errors Found)","Bad (Errors Found)"],["Unknown","Unknown"]]}' data-group="4:Errors &amp; artefact block" data-defaults="{{Choose an item.}}||{{Choose an item.}}||||||"></div>
+        <textarea id="execRows" hidden>{{Choose an item.}} |  | {{Choose an item.}} |  |  |  |  |  | 
+{{Choose an item.}} |  | {{Choose an item.}} |  |  |  |  |  | 
+ |  | {{Choose an item.}} |  |  |  |  |  | 
+{{Choose an item.}} |  | {{Choose an item.}} |  |  |  |  |  | 
+{{Choose an item.}} |  | {{Choose an item.}} |  |  |  |  |  | 
+ |  | {{Choose an item.}} |  |  |  |  |  | </textarea>
       </section>
       <section class="wizard-step" data-step="9"><h4>B. Essential</h4>
         <div class="row-editor-head"><strong>Table rows</strong></div>

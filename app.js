@@ -60,6 +60,8 @@
     const defaults = (ed.dataset.defaults || '').split('|');
     const [groupAt, groupName] = (ed.dataset.group || '').split(':');
     const [boxFrom, boxTo] = (ed.dataset.box || '').split('-').filter(Boolean).map(Number);
+    // data-fixed: the rows are a fixed set, so no per-row buttons are offered (no Remove, no move up/down)
+    const fixedRows = ed.hasAttribute('data-fixed');
     // data-checks="6|7": those columns are checkboxes, stored as "x" (ticked) or "" (unticked)
     const checks = new Set((ed.dataset.checks || '').split('|').filter(Boolean).map(Number));
     // data-selects='{"2":[["stored value","Label"],...]}': those columns are dropdowns, stored as the option value
@@ -72,16 +74,18 @@
           .map(f => f.type === 'checkbox' ? (f.checked ? 'x' : '') : f.value.replace(/\r?\n/g, ';;').trim()).join(' | '))
         .join('\n');
     };
+    // data-titles='["Application Logs", ...]': optional label shown after "Row N", by row position (rows beyond the list get just "Row N")
+    const rowNames = JSON.parse(ed.dataset.titles || '[]');
     const renumber = () => ed.querySelectorAll('.row-card').forEach((card, i) => {
-      card.querySelector('.row-title').textContent = `Row ${i + 1}`;
+      card.querySelector('.row-title').textContent = `Row ${i + 1}` + (rowNames[i] ? ` - ${rowNames[i]}` : '');
     });
     const addCard = (values = defaults, after) => {
       const card = document.createElement('div');
       card.className = 'row-card';
       card.innerHTML = '<div class="row-card-head"><span class="row-title"></span>' +
-        '<span class="row-actions"><button type="button" class="row-btn" data-act="up" title="Move up">↑</button>' +
-        '<button type="button" class="row-btn" data-act="down" title="Move down">↓</button>' +
-        '<button type="button" class="row-btn danger" data-act="remove" title="Remove row">Remove</button></span></div>' +
+        (fixedRows ? '' : '<span class="row-actions"><button type="button" class="row-btn" data-act="up" title="Move up">↑</button>' +
+          '<button type="button" class="row-btn" data-act="down" title="Move down">↓</button>' +
+          '<button type="button" class="row-btn danger" data-act="remove" title="Remove row">Remove</button></span>') + '</div>' +
         '<div class="row-fields"></div>';
       const fields = card.querySelector('.row-fields');
       let box = null;
@@ -877,24 +881,26 @@
       "**Interface Logs**;;//Log all application interface-related errors or exceptions//;; ;;~~**Top 3**~~ errors or exceptions of;;**Connectivity Failures** determined by FA",
       "**DB Replication, where DB is managed by vendor**^#3^;; ;;//Confirm DB replication process is successfully completed//"
     ];
+    // SN per row, fixed (a blank SN continues the previous one: its cell spans both rows)
+    const SN = ["1","","2","3","","4"];
     const parsed = lines('execRows').map(cols);
     const spans = parsed.map((c, i) => {
-      if (!c[0] && i > 0) return 0;
-      let n = 1; while (i + n < parsed.length && !parsed[i + n][0]) n++;
+      if (!SN[i] && i > 0) return 0;
+      let n = 1; while (i + n < parsed.length && !SN[i + n]) n++;
       return n;
     });
     const dataRows = parsed.map((c, i) => new TableRow({ cantSplit: true, children: [
-      ...(spans[i] ? [cell(c[0] || '', W[0], { rowSpan: spans[i], vcenter: true, run: SMALL })] : []),
+      ...(spans[i] ? [cell(SN[i] || '', W[0], { rowSpan: spans[i], vcenter: true, run: SMALL })] : []),
       cell(MEANS[i] || '', W[1], { align: C, run: SMALL }),
-      cell(nameLoc(c[1]), W[2], { align: C, run: SMALL }),
-      cell(c[2] || '', W[3], { run: SMALL }),
-      cell([errBlock({ noTick: c[5], errTick: c[6], errText: "ServiceNow ticket has been raised for internal tracking and assigned to the appropriate action party.", ticket: c[7] }, SMALL)], W[4]),
-      cell(c[3] || '', W[5], { vcenter: true, run: SMALL }),
-      cell(c[4] || '', W[6], { vcenter: true, run: SMALL }),
+      cell(nameLoc(c[0]), W[2], { align: C, run: SMALL }),
+      cell(c[1] || '', W[3], { run: SMALL }),
+      cell([errBlock({ noTick: c[4], errTick: c[5], errText: "ServiceNow ticket has been raised for internal tracking and assigned to the appropriate action party.", ticket: c[6] }, SMALL)], W[4]),
+      cell(c[2] || '', W[5], { vcenter: true, run: SMALL }),
+      cell(c[3] || '', W[6], { vcenter: true, run: SMALL }),
       // Duration From / To come from the date-time pickers; an unset picker keeps the grey example text
       cell([artStacked('#A4', SMALL,
-        c[8] ? fmtDateTime(c[8]) : undefined,
-        c[9] ? fmtDateTime(c[9]) : undefined)], W[7])
+        c[7] ? fmtDateTime(c[7]) : undefined,
+        c[8] ? fmtDateTime(c[8]) : undefined)], W[7])
     ] }));
 
     const table = new Table({
