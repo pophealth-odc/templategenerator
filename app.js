@@ -68,6 +68,9 @@
     const selects = JSON.parse(ed.dataset.selects || '{}');
     // data-datetimes="10|11": those columns are date-time pickers, stored as "yyyy-MM-ddTHH:mm" (empty = not set)
     const datetimes = new Set((ed.dataset.datetimes || '').split('|').filter(Boolean).map(Number));
+    // data-times='{"7":"00:00","8":"23:59"}': those columns are one 24-hour "dd/mm/yyyy HH:mm" box each; the time shown is the default used when only a date is entered.
+    // The stored value is the same "yyyy-MM-ddTHH:mm" (empty while nothing is entered), so the generator reads it exactly as before.
+    const timeDefaults = JSON.parse(ed.dataset.times || '{}');
     const sync = () => {
       store.value = [...ed.querySelectorAll('.row-card')]
         .map(card => [...card.querySelectorAll('[data-col]')]
@@ -99,6 +102,59 @@
           field.addEventListener('change', sync);
           label.className = 'check';
           label.append(field, ' ' + name);
+        } else if (timeDefaults[i]) {
+          // One box per duration: "dd/mm/yyyy HH:mm" in 24-hour time. Typing only a date fills in the default time
+          // (data-times: 00:00 for the start, 23:59 for the end). A calendar button picks the date. The saved value is
+          // still "yyyy-MM-ddTHH:mm" (empty when nothing is entered), so the table code reads it exactly as before.
+          label.textContent = name;
+          const defTime = timeDefaults[i];
+          const pad = n => String(n).padStart(2, '0');
+          const isoToText = iso => { const m = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})/.exec(iso || ''); return m ? `${m[3]}/${m[2]}/${m[1]} ${m[4]}:${m[5]}` : ''; };
+          const wrap = document.createElement('div');
+          wrap.className = 'dt24';
+          const txt = document.createElement('input');
+          txt.type = 'text'; txt.inputMode = 'numeric'; txt.autocomplete = 'off'; txt.maxLength = 16;
+          txt.placeholder = `dd/mm/yyyy ${defTime}`;
+          txt.setAttribute('aria-label', `${name} (dd/mm/yyyy HH:mm, 24-hour)`);
+          txt.value = isoToText(values[i]);
+          const cal = document.createElement('button');
+          cal.type = 'button'; cal.className = 'cal-btn'; cal.title = 'Pick a date'; cal.setAttribute('aria-label', `Pick the ${name} date`);
+          cal.innerHTML = '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>';
+          const picker = document.createElement('input');
+          picker.type = 'date'; picker.className = 'cal-pick'; picker.tabIndex = -1; picker.setAttribute('aria-hidden', 'true');
+          field = document.createElement('input');          // holds the value that is saved
+          field.type = 'hidden';
+          field.value = values[i] || '';
+          const parse = s => {
+            const t = s.trim();
+            if (!t) return { iso: '' };
+            const m = /^(\d{1,2})[\/.\-](\d{1,2})[\/.\-](\d{4})(?:\s+(\d{1,2})[:.](\d{2}))?$/.exec(t);
+            if (!m) return { error: true };
+            const [dh, dm] = defTime.split(':');
+            const hh = m[4] !== undefined ? +m[4] : +dh, mi = m[5] !== undefined ? +m[5] : +dm;
+            const dt = new Date(+m[3], +m[2] - 1, +m[1]);
+            if (dt.getFullYear() !== +m[3] || dt.getMonth() !== +m[2] - 1 || dt.getDate() !== +m[1] || hh > 23 || mi > 59) return { error: true };
+            return { iso: `${m[3]}-${pad(m[2])}-${pad(m[1])}T${pad(hh)}:${pad(mi)}`, text: `${pad(m[1])}/${pad(m[2])}/${m[3]} ${pad(hh)}:${pad(mi)}` };
+          };
+          const apply = normalise => {
+            const r = parse(txt.value);
+            if (r.error) { txt.setCustomValidity(`Enter the date and time as dd/mm/yyyy HH:mm (24-hour), for example 02/07/2026 ${defTime}`); field.value = ''; }
+            else { txt.setCustomValidity(''); field.value = r.iso; if (normalise && r.text) txt.value = r.text; }
+            sync();
+          };
+          txt.addEventListener('input', () => apply(false));
+          txt.addEventListener('change', () => apply(true));
+          txt.addEventListener('blur', () => apply(true));
+          cal.addEventListener('click', () => { try { picker.showPicker(); } catch (e) { picker.focus(); picker.click(); } });
+          picker.addEventListener('change', () => {
+            if (!picker.value) return;
+            const [y, mo, d] = picker.value.split('-');
+            const keep = /\s(\d{1,2}:\d{2})$/.exec(txt.value.trim());      // keep a time that was already typed
+            txt.value = `${d}/${mo}/${y} ${keep ? keep[1] : defTime}`;
+            apply(true);
+          });
+          wrap.append(txt, cal, picker);
+          label.append(wrap, field);
         } else if (datetimes.has(i)) {
           label.textContent = name;
           field = document.createElement('input');
@@ -121,7 +177,7 @@
           field.value = values[i] || '';
           field.addEventListener('input', sync);
           label.appendChild(field);
-          if (i === 0) label.className = 'sn';
+          if (i === 0 && name === 'SN') label.className = 'sn';
         }
         field.dataset.col = i;
         if (groupName && i === +groupAt) {
@@ -919,8 +975,8 @@
     ];
   }
   // ---- Page 12 (landscape): B. Essential batch-job / scheduled-job checks table + footnotes ----
-  // Row syntax (batchRows): SN | Name of Batch Job | Logs File Path | Server(s) | Health Status | Remark | No errors tick (x) |
-  //   Errors found tick (x) | Errors text | ServiceNow ticket number | Duration From | Duration To   (yyyy-MM-ddTHH:mm)
+  // Row syntax (batchRows): Name of Batch Job | Logs File Path | Server(s) | Health Status | Remark | No errors tick (x) |
+  //   Errors found tick (x) | ServiceNow ticket number | Duration From | Duration To   (yyyy-MM-ddTHH:mm)
   // Every row gets the shared "errors found" block and the stacked artefact block.
   function page10(d) {
     const { Paragraph, Table, TableRow, WidthType, AlignmentType } = d;
@@ -933,20 +989,20 @@
     // Header row appears once, on the first page only
     const hdrRow = new TableRow({ children: W.map((w, i) =>
       cell(headers[i] || '', w, { fill: HEAD_FILL, align: C, run: SMALL })) });
-    const dataRows = lines('batchRows').map(l => {
+    const dataRows = lines('batchRows').map((l, i) => {
       const c = cols(l);
       return new TableRow({ cantSplit: true, children: [
-        cell(c[0] || '', W[0], { vcenter: true, run: SMALL }),
-        cell(c[1] || '', W[1], { vcenter: true, run: SMALL }),
-        cell(c[2] || '', W[2], { vcenter: true, run: SMALL }),
-        cell(c[3] || '', W[3], { vcenter: true, run: SMALL }),
-        cell([errBlock({ noTick: c[6], errTick: c[7], errText: 'ServiceNow ticket has been raised for internal tracking and assigned to the appropriate action party.', ticket: c[8] }, SMALL)], W[4]),
-        cell(c[4] || '', W[5], { vcenter: true, run: SMALL }),
-        cell(c[5] || '', W[6], { vcenter: true, run: SMALL }),
+        cell(String(i + 1), W[0], { vcenter: true, run: SMALL }),
+        cell(c[0] || '', W[1], { vcenter: true, run: SMALL }),
+        cell(c[1] || '', W[2], { vcenter: true, run: SMALL }),
+        cell(c[2] || '', W[3], { vcenter: true, run: SMALL }),
+        cell([errBlock({ noTick: c[5], errTick: c[6], errText: 'ServiceNow ticket has been raised for internal tracking and assigned to the appropriate action party.', ticket: c[7] }, SMALL)], W[4]),
+        cell(c[3] || '', W[5], { vcenter: true, run: SMALL }),
+        cell(c[4] || '', W[6], { vcenter: true, run: SMALL }),
         // Duration From / To come from the date-time pickers; an unset picker keeps the grey example text
         cell([artStacked("#A4", SMALL,
-          c[9] ? fmtDateTime(c[9]) : undefined,
-          c[10] ? fmtDateTime(c[10]) : undefined)], W[7])
+          c[8] ? fmtDateTime(c[8]) : undefined,
+          c[9] ? fmtDateTime(c[9]) : undefined)], W[7])
       ] });
     });
     const table = new Table({
@@ -1241,7 +1297,7 @@
     ];
   }
   // ---- Page 15 (landscape): C. Optional – additional means table ----
-  // Row syntax (errRows): SN | Means | Name / Location | Server(s) / Component(s) | Health Status | Remark | No errors tick (x) |
+  // Row syntax (errRows): Means | Name / Location | Server(s) / Component(s) | Health Status | Remark | No errors tick (x) |
   //   Errors found tick (x) | ServiceNow ticket number | Duration From | Duration To   (yyyy-MM-ddTHH:mm)
   // Every row gets the shared "errors found" block and the stacked artefact block.
   function page11(d) {
@@ -1254,20 +1310,20 @@
     const headers = ["**SN**","**Means**","**Name / Location**","**Server(s) / Component(s)**","**Any Application Errors found in logs**;; ;;~~Ticket must be created in ServiceNow.~~","**Health Status**;;- Good (No Error Found);;- Fair (Minor Errors Found);;- Bad (Errors Found);;- Unknown","**Remark**;; ;;~~Quality rating would reflect accordingly if the status stated (e.g. errors found or health status) **__is deviated__** from what is found in the artefacts.~~","**Artefact(s)**;; ;;~~Please provide error details in Section D if error is found~~;; ;;**Duration of Entries Captured in the Logs for Review**^#A4^"];
     const hdrRow = new TableRow({ children: W.map((w, i) =>
       cell(headers[i] || '', w, { fill: HEAD_FILL, align: C, run: SMALL })) });
-    const dataRows = lines('errRows').map(l => {
+    const dataRows = lines('errRows').map((l, i) => {
       const c = cols(l);
       return new TableRow({ cantSplit: true, children: [
-        cell(c[0] || '', W[0], { vcenter: true, run: SMALL }),
-        cell(c[1] || '', W[1], { vcenter: true, run: SMALL }),
-        cell(c[2] || '', W[2], { vcenter: true, run: SMALL }),
-        cell(c[3] || '', W[3], { vcenter: true, run: SMALL }),
-        cell([errBlock({ noTick: c[6], errTick: c[7], errText: 'ServiceNow ticket has been raised for internal tracking and assigned to the appropriate action party.', ticket: c[8] }, SMALL)], W[4]),
-        cell(c[4] || '', W[5], { vcenter: true, run: SMALL }),
-        cell(c[5] || '', W[6], { vcenter: true, run: SMALL }),
+        cell(String(i + 1), W[0], { vcenter: true, run: SMALL }),
+        cell(c[0] || '', W[1], { vcenter: true, run: SMALL }),
+        cell(c[1] || '', W[2], { vcenter: true, run: SMALL }),
+        cell(c[2] || '', W[3], { vcenter: true, run: SMALL }),
+        cell([errBlock({ noTick: c[5], errTick: c[6], errText: 'ServiceNow ticket has been raised for internal tracking and assigned to the appropriate action party.', ticket: c[7] }, SMALL)], W[4]),
+        cell(c[3] || '', W[5], { vcenter: true, run: SMALL }),
+        cell(c[4] || '', W[6], { vcenter: true, run: SMALL }),
         // Duration From / To come from the date-time pickers; an unset picker keeps the grey example text
         cell([artStacked("#A4", SMALL,
-          c[9] ? fmtDateTime(c[9]) : undefined,
-          c[10] ? fmtDateTime(c[10]) : undefined)], W[7])
+          c[8] ? fmtDateTime(c[8]) : undefined,
+          c[9] ? fmtDateTime(c[9]) : undefined)], W[7])
       ] });
     });
     const table = new Table({

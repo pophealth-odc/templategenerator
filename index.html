@@ -83,19 +83,19 @@ App Ops Practice &amp; Governance site | App Ops Practice &amp; Governance | htt
         </fieldset>
         <fieldset class="check-group stack"><legend>Managed by</legend>
           <div class="check-row">
-            <label class="check"><input type="checkbox" name="managed" value="Synapxe Managed"> Synapxe Managed</label>
+            <label class="check"><input type="checkbox" name="managed" value="Synapxe Managed" checked> Synapxe Managed</label>
             <label class="check"><input type="checkbox" name="managed" value="Entity Managed"> Entity Managed</label>
           </div>
           <label class="check"><input type="checkbox" id="managedNote"> <span id="managedNoteText">The same value is updated in the Application Inventory “Managed by” field (in ServiceNow).</span></label>
         </fieldset>
         <fieldset class="check-group stack"><legend>Frequency of Application Monitoring (Preventive)</legend>
-          <label class="check"><input type="checkbox" name="freq" value="Daily (Weekday)"> Daily (Weekday)</label>
+          <label class="check"><input type="checkbox" name="freq" value="Daily (Weekday)" checked> Daily (Weekday)</label>
           <label class="check"><input type="checkbox" name="freq" value="Weekly"> Weekly</label>
           <label class="check"><input type="checkbox" name="freq" value="Monthly"> Monthly</label>
         </fieldset>
         <label>Frequency – other (placeholder text)<input id="frequencyOther" value="For other Frequency, enter here"></label>
         <fieldset class="check-group stack"><legend>Declaration</legend>
-          <label class="check"><input type="checkbox" id="declChk"> <span id="declChkText">I confirm that I am using the latest version template available in the Synapxe Policies &amp; Procedures Portal for the current KTLO activity to ensure latest standard is adhered to.</span></label>
+          <label class="check"><input type="checkbox" id="declChk" checked> <span id="declChkText">I confirm that I am using the latest version template available in the Synapxe Policies &amp; Procedures Portal for the current KTLO activity to ensure latest standard is adhered to.</span></label>
         </fieldset>
       </section>
       <section class="wizard-step" data-step="4" data-hidden><h4>5. Artefacts – Data points</h4><p class="muted">Fills the table on page 6. One table row per line, columns separated by <code>|</code> (Data field | Description | Sample value). Inside a cell: <code>;;</code> starts a new line, <code>- </code> at the start of a line makes a bullet, <code>**text**</code> is bold, <code>^th^</code> is superscript.</p>
@@ -170,7 +170,7 @@ Artefact(s) | Screenshots that provide key information and status of the compone
       <section class="wizard-step" data-step="8"><h4>A. Essential</h4>
         <label>Date of Execution<input id="execValue" type="date"></label>
         <div class="row-editor-head"><strong>Table rows</strong></div>
-        <div id="execRowsEditor" class="row-editor" data-store="execRows" data-titles='["Application Logs","Application Logs","Dynatrace - Problem Alerts","Interface Logs","Interface Logs","DB Replication"]' data-fixed data-box="7-8" data-cols="Name / Location|Server(s) / Component(s)|Health Status|Remark|No errors found|Errors found|ServiceNow Ticket No|Duration From|Duration To" data-rows="3|3|3|3|1|1|1|1|1" data-checks="4|5" data-datetimes="7|8" data-selects='{"0":[["{{Choose an item.}}","Choose an item."],["Dynatrace","Dynatrace"],["App log files in servers","App log files in servers"],["Dynatrace APM","Dynatrace APM"],["Not Applicable","Not Applicable"]],"2":[["{{Choose an item.}}","Choose an item."],["Good (No Error Found)","Good (No Error Found)"],["Fair (Minor Errors Found)","Fair (Minor Errors Found)"],["Bad (Errors Found)","Bad (Errors Found)"],["Unknown","Unknown"]]}' data-group="4:Errors &amp; artefact block" data-defaults="{{Choose an item.}}||{{Choose an item.}}||||||"></div>
+        <div id="execRowsEditor" class="row-editor" data-store="execRows" data-titles='["Application Logs","Application Logs","Dynatrace - Problem Alerts","Interface Logs","Interface Logs","DB Replication"]' data-fixed data-box="7-8" data-cols="Name / Location|Server(s) / Component(s)|Health Status|Remark|No errors found|Errors found|ServiceNow Ticket No|Duration From|Duration To" data-rows="3|3|3|3|1|1|1|1|1" data-checks="4|5" data-times='{"7":"00:00","8":"23:59"}' data-selects='{"0":[["{{Choose an item.}}","Choose an item."],["Dynatrace","Dynatrace"],["App log files in servers","App log files in servers"],["Dynatrace APM","Dynatrace APM"],["Not Applicable","Not Applicable"]],"2":[["{{Choose an item.}}","Choose an item."],["Good (No Error Found)","Good (No Error Found)"],["Fair (Minor Errors Found)","Fair (Minor Errors Found)"],["Bad (Errors Found)","Bad (Errors Found)"],["Unknown","Unknown"]]}' data-group="4:Errors &amp; artefact block" data-defaults="{{Choose an item.}}||{{Choose an item.}}||||||"></div>
         <textarea id="execRows" hidden>{{Choose an item.}} |  | {{Choose an item.}} |  |  |  |  |  | 
 {{Choose an item.}} |  | {{Choose an item.}} |  |  |  |  |  | 
  |  | {{Choose an item.}} |  |  |  |  |  | 
@@ -180,26 +180,26 @@ Artefact(s) | Screenshots that provide key information and status of the compone
       </section>
       <section class="wizard-step" data-step="9"><h4>B. Essential</h4>
         <div class="row-editor-head"><strong>Table rows</strong></div>
-        <div id="batchRowsEditor" class="row-editor" data-store="batchRows" data-box="9-10" data-cols="SN|Name of Batch Job|Batch Job Logs File Path|Server(s) / Component(s)|Health Status|Remark|No errors found|Errors found|ServiceNow Ticket No|Duration From|Duration To" data-rows="1|2|2|2|1|2|1|1|1|1|1" data-group="6:Errors &amp; artefact block" data-checks="6|7" data-datetimes="9|10" data-selects='{"4":[["{{Choose an item.}}","Choose an item."],["Good (No Error Found)","Good (No Error Found)"],["Fair (Minor Errors Found)","Fair (Minor Errors Found)"],["Bad (Errors Found)","Bad (Errors Found)"],["Unknown","Unknown"]]}' data-defaults="||||{{Choose an item.}}||||||"></div>
+        <div id="batchRowsEditor" class="row-editor" data-store="batchRows" data-box="8-9" data-cols="Name of Batch Job|Batch Job Logs File Path|Server(s) / Component(s)|Health Status|Remark|No errors found|Errors found|ServiceNow Ticket No|Duration From|Duration To" data-rows="2|2|2|1|2|1|1|1|1|1" data-group="5:Errors &amp; artefact block" data-checks="5|6" data-times='{"8":"00:00","9":"23:59"}' data-selects='{"3":[["{{Choose an item.}}","Choose an item."],["Good (No Error Found)","Good (No Error Found)"],["Fair (Minor Errors Found)","Fair (Minor Errors Found)"],["Bad (Errors Found)","Bad (Errors Found)"],["Unknown","Unknown"]]}' data-defaults="|||{{Choose an item.}}||||||"></div>
         <button type="button" class="button secondary row-add" data-editor="batchRowsEditor">+ Add row</button>
-        <textarea id="batchRows" hidden>1 |  |  |  | {{Choose an item.}} |  |  |  |  |  | 
-2 |  |  |  | {{Choose an item.}} |  |  |  |  |  | 
-3 |  |  |  | {{Choose an item.}} |  |  |  |  |  | </textarea>
+        <textarea id="batchRows" hidden> |  |  | {{Choose an item.}} |  |  |  |  |  | 
+ |  |  | {{Choose an item.}} |  |  |  |  |  | 
+ |  |  | {{Choose an item.}} |  |  |  |  |  | </textarea>
       </section>
       <section class="wizard-step" data-step="10"><h4>C. Optional</h4>
         <div class="row-editor-head"><strong>Table rows</strong></div>
-        <div id="errRowsEditor" class="row-editor" data-store="errRows" data-box="9-10" data-cols="SN|Means|Name / Location|Server(s) / Component(s)|Health Status|Remark|No errors found|Errors found|ServiceNow Ticket No|Duration From|Duration To" data-rows="1|1|2|2|1|2|1|1|1|1|1" data-group="6:Errors &amp; artefact block" data-checks="6|7" data-datetimes="9|10" data-selects='{"1":[["{{Choose an item.}}","Choose an item."],["Application Log","Application Log"],["DB Alert Log","DB Alert Log"],["Interface Log","Interface Log"],["Batch Jobs","Batch Jobs"],["App Dashboard/Console","App Dashboard/Console"],["eG Monitoring","eG Monitoring"],["Dynatrace APM","Dynatrace APM"],["DB Table &amp; Archive Space","DB Table &amp; Archive Space"],["DB Replication","DB Replication"]],"4":[["{{Choose an item.}}","Choose an item."],["Good (No Error Found)","Good (No Error Found)"],["Fair (Minor Errors Found)","Fair (Minor Errors Found)"],["Bad (Errors Found)","Bad (Errors Found)"],["Unknown","Unknown"]]}' data-defaults="|{{Choose an item.}}|||{{Choose an item.}}||||||"></div>
+        <div id="errRowsEditor" class="row-editor" data-store="errRows" data-box="8-9" data-cols="Means|Name / Location|Server(s) / Component(s)|Health Status|Remark|No errors found|Errors found|ServiceNow Ticket No|Duration From|Duration To" data-rows="1|2|2|1|2|1|1|1|1|1" data-group="5:Errors &amp; artefact block" data-checks="5|6" data-times='{"8":"00:00","9":"23:59"}' data-selects='{"0":[["{{Choose an item.}}","Choose an item."],["Application Log","Application Log"],["DB Alert Log","DB Alert Log"],["Interface Log","Interface Log"],["Batch Jobs","Batch Jobs"],["App Dashboard/Console","App Dashboard/Console"],["eG Monitoring","eG Monitoring"],["Dynatrace APM","Dynatrace APM"],["DB Table &amp; Archive Space","DB Table &amp; Archive Space"],["DB Replication","DB Replication"]],"3":[["{{Choose an item.}}","Choose an item."],["Good (No Error Found)","Good (No Error Found)"],["Fair (Minor Errors Found)","Fair (Minor Errors Found)"],["Bad (Errors Found)","Bad (Errors Found)"],["Unknown","Unknown"]]}' data-defaults="{{Choose an item.}}|||{{Choose an item.}}||||||"></div>
         <button type="button" class="button secondary row-add" data-editor="errRowsEditor">+ Add row</button>
-        <textarea id="errRows" hidden>1 | {{Choose an item.}} |  |  | {{Choose an item.}} |  |  |  |  |  | 
-2 | {{Choose an item.}} |  |  | {{Choose an item.}} |  |  |  |  |  | 
-3 | {{Choose an item.}} |  |  | {{Choose an item.}} |  |  |  |  |  | </textarea>
+        <textarea id="errRows" hidden>{{Choose an item.}} |  |  | {{Choose an item.}} |  |  |  |  |  | 
+{{Choose an item.}} |  |  | {{Choose an item.}} |  |  |  |  |  | 
+{{Choose an item.}} |  |  | {{Choose an item.}} |  |  |  |  |  | </textarea>
       </section>
       <section class="wizard-step" data-step="11"><h4>Section 3.0: Declaration for Use of Enterprise Vulnerability Management System (EVMS) Tool</h4>
         <fieldset class="declaration-group"><legend>Declaration</legend>
         <fieldset class="check-group stack"><legend>Option 1</legend>
-          <label class="check"><input type="checkbox" id="evmsOpt1"> <span id="evmsOpt1Text">All my servers have onboarded in or installed with the selected EVMS tool(s) below.</span></label>
-          <label class="check indent"><input type="checkbox" id="evmsTenable"> Tenable</label>
-          <label class="check indent"><input type="checkbox" id="evmsNgess"> NGESS</label>
+          <label class="check"><input type="checkbox" id="evmsOpt1" checked> <span id="evmsOpt1Text">All my servers have onboarded in or installed with the selected EVMS tool(s) below.</span></label>
+          <label class="check indent"><input type="checkbox" id="evmsTenable" checked> Tenable</label>
+          <label class="check indent"><input type="checkbox" id="evmsNgess" checked> NGESS</label>
           <label class="check indent"><input type="checkbox" id="evmsAws"> AWS Inspector</label>
           <label class="check indent others-row"><input type="checkbox" id="evmsOthers"> Others, <input type="text" id="evmsOthersNote" placeholder="Please specify"></label>
         </fieldset>
@@ -211,10 +211,10 @@ Artefact(s) | Screenshots that provide key information and status of the compone
       <section class="wizard-step" data-step="12"><h4>Section 4.0: Application Monitoring Declaration and Acknowledgement</h4>
         <fieldset class="declaration-group"><legend>Declaration</legend>
         <fieldset class="check-group stack"><legend>Option 1</legend>
-          <label class="check"><input type="checkbox" id="decA1"> <span id="decA1Text">The health check of my application software has been performed in accordance with the agreed frequency and scope of activity and SOP.</span></label>
-          <label class="check"><input type="checkbox" id="decA2"> <span id="decA2Text">I have confirmed that I have reviewed the relevant logs to identify any errors or exceptions. The supporting artefacts I have attached are complete and accurate, and I understand their purpose and how do they fulfil the defined monitoring requirements.</span></label>
-          <label class="check"><input type="checkbox" id="decA3"> <span id="decA3Text">I can explain what each artefact is about, and the data point represents, including how do these artefacts support the review of required error logs, anomalies, and exceptions.</span></label>
-          <label class="check"><input type="checkbox" id="decA4"> <span id="decA4Text">For any non-compliance in Option 1, I have escalated to Service Lead and attached Service Lead acknowledgement.</span></label>
+          <label class="check"><input type="checkbox" id="decA1" checked> <span id="decA1Text">The health check of my application software has been performed in accordance with the agreed frequency and scope of activity and SOP.</span></label>
+          <label class="check"><input type="checkbox" id="decA2" checked> <span id="decA2Text">I have confirmed that I have reviewed the relevant logs to identify any errors or exceptions. The supporting artefacts I have attached are complete and accurate, and I understand their purpose and how do they fulfil the defined monitoring requirements.</span></label>
+          <label class="check"><input type="checkbox" id="decA3" checked> <span id="decA3Text">I can explain what each artefact is about, and the data point represents, including how do these artefacts support the review of required error logs, anomalies, and exceptions.</span></label>
+          <label class="check"><input type="checkbox" id="decA4" checked> <span id="decA4Text">For any non-compliance in Option 1, I have escalated to Service Lead and attached Service Lead acknowledgement.</span></label>
         </fieldset>
         <fieldset class="check-group stack"><legend>Option 2</legend>
           <label class="check"><input type="checkbox" id="decB1"> <span id="decB1Text">The health check of my application software is not carried out in accordance with the agreed frequency and scope of activity and SOP. The details of area not completed with reason __is__ stated in the attached artefact with Service Lead’s approval.</span></label>
@@ -222,14 +222,14 @@ Artefact(s) | Screenshots that provide key information and status of the compone
         </fieldset>
         <fieldset class="declaration-group"><legend>Acknowledgement</legend>
         <div class="check-group stack">
-          <label class="check"><input type="checkbox" id="ackA1"> <span id="ackA1Text">I acknowledge that neglecting errors in logs can pose resiliency risk to the stability of the system.</span></label>
-          <label class="check"><input type="checkbox" id="ackA2"> <span id="ackA2Text">I acknowledge that I would follow up on the application errors and in situations where I am uncertain who will follow up, then I am responsible to escalate my reporting FA chain of command until I am informed of the assigned FA to follow up.</span></label>
-          <label class="check"><input type="checkbox" id="ackA3"> <span id="ackA3Text">I acknowledge my responsibility to ensure that any identified issues or exceptions are clearly documented and followed up in accordance with established procedures as part of the AMS management.</span></label>
+          <label class="check"><input type="checkbox" id="ackA1" checked> <span id="ackA1Text">I acknowledge that neglecting errors in logs can pose resiliency risk to the stability of the system.</span></label>
+          <label class="check"><input type="checkbox" id="ackA2" checked> <span id="ackA2Text">I acknowledge that I would follow up on the application errors and in situations where I am uncertain who will follow up, then I am responsible to escalate my reporting FA chain of command until I am informed of the assigned FA to follow up.</span></label>
+          <label class="check"><input type="checkbox" id="ackA3" checked> <span id="ackA3Text">I acknowledge my responsibility to ensure that any identified issues or exceptions are clearly documented and followed up in accordance with established procedures as part of the AMS management.</span></label>
         </div>
         </fieldset>
         <fieldset class="declaration-group"><legend>Please verify</legend>
         <div class="check-group stack">
-          <label class="check"><input type="checkbox" id="ackV1"> <span id="ackV1Text">All the Servers (both Production and Non-Production) in relation to the Application ID is captured in ServiceNow CMDB module and with the relationship mapped to the Application ID.</span></label>
+          <label class="check"><input type="checkbox" id="ackV1" checked> <span id="ackV1Text">All the Servers (both Production and Non-Production) in relation to the Application ID is captured in ServiceNow CMDB module and with the relationship mapped to the Application ID.</span></label>
         </div>
         </fieldset>
       </section>

@@ -1,0 +1,253 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Preventive Monitoring Template</title>
+  <link rel="stylesheet" href="styles.css">
+  <script>
+    // Apply the saved theme before the page paints (no flash); falls back to the system setting
+    (function () {
+      var t = null;
+      try { t = localStorage.getItem('theme'); } catch (e) {}
+      if (!t) t = window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-theme', t);
+    })();
+  </script>
+  <script src="assets/docx.umd.js"></script>
+  <script src="assets/logo.js"></script>
+</head>
+<body>
+<header class="site-header"><div class="brand-mark">PM</div><div><p class="eyebrow">DOCUMENT TOOL</p><h1>Preventive Monitoring Template</h1></div>
+  <button type="button" id="themeToggle" class="theme-toggle" aria-label="Switch colour theme"></button></header>
+<main class="layout">
+  <section class="intro"><h2>Generate a Word document</h2><p>Use the wizard to create an editable Word document with your own cover details.</p></section>
+  <section class="card wizard-card"><div class="wizard-head"><div><p class="eyebrow">EDITABLE VERSION</p><h3>Document wizard</h3></div><div class="step-count" id="stepCount">Step 1 of 14</div></div>
+    <div class="progress-track"><div id="progressFill" class="progress-fill"></div></div>
+    <form id="wizardForm">
+      <section class="wizard-step active" data-step="0"><h4>Cover page &amp; confidentiality notice</h4><p class="muted">These fields appear on the first page; the confidentiality statement is printed at the bottom of the page.</p>
+        <label>Document title<input id="docTitle" value="Sign-off Template for Monitoring (Preventive)" required></label>
+        <label>Document number<input id="docNumber" value="SYNAPXE-TMPL-MSO_AGC_GOV-0004" required></label>
+        <div class="two-col"><label>Version<input id="version" value="6.1" required></label><label>Effective date<input id="effectiveDate" value="30-Apr-2026" required></label></div>
+        <label>Approved by<input id="approvedBy" value="Director, Service Operations-Service Operations Management" required></label>
+        <label>Confidentiality statement<textarea id="confidentiality" rows="8" required>This document contains confidential, privileged and proprietary information of Synapxe Pte. Ltd. (“Synapxe”). Disclosure and/or reproduction of this document in full or in part, may result in material and irreparable harm and damage to Synapxe for which monetary compensation alone may not be an adequate remedy. Written permission must be obtained from a duly authorised personnel of Synapxe prior to the disclosure and/or reproduction of this document or any part thereof to any other party. To ensure that you have the current version of this document, always refer to the latest controlled copy available from the official Synapxe channel. Any hardcopy of this document, whether printed or photocopied, and any offline copy of this document are considered uncontrolled copies.</textarea></label>
+      </section>
+      <section class="wizard-step" data-step="1"><h4>Table of contents</h4><p class="muted">One entry per line. Keep the dotted leaders and page numbers if you want to retain the source's contents-page style.</p>
+        <label>Contents entries<textarea id="tocEntries" rows="19" required>1    PURPOSE OF THIS DOCUMENT...............................................................3
+2    OBJECTIVES.............................................................................3
+3    SCOPE..................................................................................3
+4    TERMS AND DEFINITIONS..................................................................3
+5    KEY COMPONENTS OF A SIGN OFF FORM......................................................3
+6    URL....................................................................................3
+7    APPROACH...............................................................................3
+8    ARTEFACTS..............................................................................4
+    8.1    Application In-Scope.............................................................4
+    8.2    Capture of Artefacts.............................................................5
+        Data Points.........................................................................5
+        Section 1.0: Application-Specific SOP for Preventive Monitoring.....................8
+        Section 2.0: Health Check...........................................................9
+        Section 3.0: Declaration for Use of Enterprise Vulnerability Management System (EVMS) Tool...16
+        Section 4.0: Application Monitoring Declaration and Acknowledgement.................17
+9    APPLICATION MONITORING SIGN-OFF........................................................18
+    9.1    Completed by FA..................................................................18
+    9.2    Reviewed by Team Lead or Manager (JG6 and Above).................................18
+    9.3    Approved by Service Lead.........................................................18</textarea></label>
+      </section>
+      <section class="wizard-step" data-step="2" data-hidden><h4>3. Page 4 content</h4><p class="muted">Sections 1–7. One item per line. For tables use <code>left | right</code> on each line; sections 5 and 6 use <code>left | link text | URL</code>: the text is shown and the URL is embedded behind it.</p>
+        <label>1. Purpose of this document (one bullet per line)<textarea id="purpose" rows="2" required>Provide the list of verification that shall be minimally performed by FA during the application health check process.</textarea></label>
+        <label>2. Objectives (one bullet per line)<textarea id="objectives" rows="3" required>To ensure the artefacts provided fulfill the obligation and requirements in place. This includes policy, procedure and standard.
+To reduce the findings in the event of health check conducted by FA.</textarea></label>
+        <label>3. Scope – introduction<input id="scopeIntro" value="This application health check process covers" required></label>
+        <label>3. Scope – items (lettered (a), (b)… one per line)<textarea id="scopeItems" rows="2" required>Perform health checks through relevant means provided.
+Raise incident tickets for issues found and describe actions to be taken.</textarea></label>
+        <label>4. Terms and definitions (<code>Term | Definition</code>, optional)<textarea id="termsRows" rows="3"></textarea></label>
+        <label>5. Key components (<code>Component | Link text | URL</code>)<textarea id="keyRows" rows="2">Monitoring (Preventive) Sign-off Template | Monitoring (Preventive) | https://healthsg.sharepoint.com/sites/Synapxe_MSO_AGC/AOPG_shared_doc/Forms/AllItems.aspx?id=%2Fsites%2FSynapxe%5FMSO%5FAGC%2FAOPG%5Fshared%5Fdoc%2FKTLO%20Sign%2Doff%20Templates%2FMonitoring%20%28Preventive%29&amp;viewid=7eac9c59%2Df063%2D4428%2D9823%2Df352aeae05fa&amp;amp=</textarea></label>
+        <label>6. URL (<code>Name | Link text | URL</code>)<textarea id="urlRows" rows="3">Dynatrace APM URL | Dynatrace APM | https://apm-prod.healthgrp.com.sg/
+App Ops Practice &amp; Governance site | App Ops Practice &amp; Governance | https://healthsg.sharepoint.com/sites/Synapxe_MSO_AGC/SitePages/AGC_Home.aspx</textarea></label>
+        <label>7. Approach<input id="approach" value="Next version – Flow diagram." required></label>
+      </section>
+
+      <section class="wizard-step" data-step="3"><h4>Artefacts – Application in-scope</h4>
+        <div class="two-col"><label>Name of maintenance<input id="systemName" value="&lt;Enter Maintenance name&gt;" required></label><label>System ID<input id="systemId" value="&lt;Enter system ID&gt;" required></label></div>
+        <label>BET Request ID<input id="betRequestId" value="&lt;Enter BET Request ID&gt;" required></label>
+        <fieldset class="check-group"><legend>System Criticality</legend>
+          <label class="check"><input type="checkbox" name="criticality" value="MC (CII)"> MC (CII)</label>
+          <label class="check"><input type="checkbox" name="criticality" value="MC (Non CII)"> MC (Non CII)</label>
+          <label class="check"><input type="checkbox" name="criticality" value="BC"> BC</label>
+          <label class="check"><input type="checkbox" name="criticality" value="STD"> STD</label>
+          <label class="check"><input type="checkbox" name="criticality" value="UNCLASSIFIED"> UNCLASSIFIED</label>
+        </fieldset>
+        <fieldset class="check-group stack"><legend>Internet Facing Apps</legend>
+          <label class="check"><input type="checkbox" id="inetYes"> Yes</label>
+          <label class="check indent"><input type="checkbox" id="inetNote"> <span id="inetNoteText">The Application Inventory is updated as internet facing web site or internet mobile apps (in ServiceNow).</span></label>
+          <label class="check"><input type="checkbox" id="inetNo"> No</label>
+        </fieldset>
+        <fieldset class="check-group stack"><legend>Managed by</legend>
+          <div class="check-row">
+            <label class="check"><input type="checkbox" name="managed" value="Synapxe Managed" checked> Synapxe Managed</label>
+            <label class="check"><input type="checkbox" name="managed" value="Entity Managed"> Entity Managed</label>
+          </div>
+          <label class="check"><input type="checkbox" id="managedNote"> <span id="managedNoteText">The same value is updated in the Application Inventory “Managed by” field (in ServiceNow).</span></label>
+        </fieldset>
+        <fieldset class="check-group stack"><legend>Frequency of Application Monitoring (Preventive)</legend>
+          <label class="check"><input type="checkbox" name="freq" value="Daily (Weekday)" checked> Daily (Weekday)</label>
+          <label class="check"><input type="checkbox" name="freq" value="Weekly"> Weekly</label>
+          <label class="check"><input type="checkbox" name="freq" value="Monthly"> Monthly</label>
+        </fieldset>
+        <label>Frequency – other (placeholder text)<input id="frequencyOther" value="For other Frequency, enter here"></label>
+        <fieldset class="check-group stack"><legend>Declaration</legend>
+          <label class="check"><input type="checkbox" id="declChk" checked> <span id="declChkText">I confirm that I am using the latest version template available in the Synapxe Policies &amp; Procedures Portal for the current KTLO activity to ensure latest standard is adhered to.</span></label>
+        </fieldset>
+      </section>
+      <section class="wizard-step" data-step="4" data-hidden><h4>5. Artefacts – Data points</h4><p class="muted">Fills the table on page 6. One table row per line, columns separated by <code>|</code> (Data field | Description | Sample value). Inside a cell: <code>;;</code> starts a new line, <code>- </code> at the start of a line makes a bullet, <code>**text**</code> is bold, <code>^th^</code> is superscript.</p>
+        <div class="two-col"><label>Section title<input id="section82Title" value="Capture of Artefacts" required></label><label>Sub-heading<input id="dataPointsTitle" value="Data Points" required></label></div>
+        <div class="two-col"><label>Column 1 heading<input id="colField" value="Data Field" required></label><label>Column 2 heading<input id="colDesc" value="Description" required></label></div>
+        <label>Column 3 heading<input id="colSample" value="Sample Value" required></label>
+        <label>Full-width section row<input id="sectionRow" value="Section 2.0: Health Check" required></label>
+        <label>Rows before Health Status<textarea id="rowsA" rows="8" required>Means | The method used to monitor the health of system to ensure the software application processes and performs in an expected manner and scope. The methods may consist of application logs, IIS or web server logs, DB logs, system events, application monitoring dashboard or console, eG monitoring and Dynatrace APM. | **Compulsory:**;;- Application Log;;- Dynatrace APM – Problems;;- Interface Logs;;- Batch Jobs;;- DB Replication, where DB is managed by vendor;; ;;**Optional:**;;- DB Alert Log;;- App Dashboard/Console;;- eG Monitoring;;- Dynatrace APM;;- DB Table &amp; Archive Space;;- DB Replication, where DB is managed by Synapxe DBA
+Name / Location | Name of the means that was checked, such as log file name and its file path, name of console or dashboard, etc. | Dynatrace;; ;;log_2022_03_16.log / E:/app_logging/2022_03_06/;; ;;Top web request / Response time
+Server(s) / Component(s) | Name of server and corresponding component that were checked, such as CPU and RAM utilization, interface queue, DB replication, and etc. | NHGCCDRVPAPP01 / vCPU;; ;;NHGCCOEVPINT20 / Message Queue
+Any Application Errors found in logs | To indicate if there are any errors found and provide ServiceNow Ticket No |</textarea></label>
+        <div class="two-col"><label>Health Status – field name<input id="healthField" value="Health Status" required></label><label>Health Status – sample values<textarea id="healthSample" rows="4" required>- Good;;- Fair;;- Bad;;- Unknown</textarea></label></div>
+        <label>Health Status – descriptions (one per line; each becomes its own row)<textarea id="healthDescs" rows="5" required>**Good** – Application software performs in an expected manner and scope.
+**Fair** – Application software performs in an expected manner and scope but with minor issues that do not disrupt user operations
+**Bad** – Application software does not perform in an expected manner and scope and requires immediate system recovery or remedy.
+**Unknown** – Unable to check the health status as the means is not available</textarea></label>
+        <label>Rows after Health Status<textarea id="rowsB" rows="3" required>Remarks | Any notes to be taken down at artefact level such as observation, steps taken, etc. | Any short paragraph
+Artefact(s) | Screenshots that provide key information and status of the components that are checked, which include dashboard, charts, server information, error messages, statuses, queue count, are to be attached to support the health check effort. | Any screenshots captured shall have the timestamp.;; ;;If the artefact file is too large to attach, you may provide the URL to the document. Try to only provide key health check information.</textarea></label>
+      </section>
+      <section class="wizard-step" data-step="5" data-hidden><h4>6. Warning box (landscape page)</h4><p class="muted">Fills the red dashed warning box at the top of the first landscape page.</p>
+        <label>Warning – main message<textarea id="warnMain" rows="4" required>Any staff found to have deviated from the assigned standard (i.e. misrepresentation of the task through the attachment of non-relevant document, misalignment to the KTLO task requirements) can be reported to MSO Head for further review to verify the facts and context to arrive at a fair assessment on the conduct, skillset, and behavior of the staff. The RO and RO's conduct of being responsible to manage the quality of work performed will also be reviewed.</textarea></label>
+        <fieldset class="check-group stack">
+          <label class="check"><input type="checkbox" id="warnCheck" checked> <span id="warnCheckText">Tick this checkbox to acknowledge the above message.</span></label>
+        </fieldset>
+        <label>Warning – escalation message<textarea id="warnEscalate" rows="3" required>If you did not find the advice from RO/Service Lead sufficient and require further assistance or need advice, please do not hesitate to escalate the matter to your Directors (PDs) or the AGC KTLO Lead. Your prompt communication ensures that we can provide the necessary support and maintain smooth operations.</textarea></label>
+      </section>
+      <section class="wizard-step" data-step="6" data-hidden><h4>7. Application-specific SOP (landscape page)</h4><p class="muted">Section 1.0 banner, notes, the 1.1 availability status, the SOP document table and the declaration. Ticked boxes print as ☒, unticked as ☐. Same markers as step 9.</p>
+        <label>Section banner<input id="sopTitle" value="Section 1.0: Application-Specific SOP for Preventive Monitoring" required></label>
+        <label>Note heading<input id="sopNoteHead" value="**__Application teams to note:__**" required></label>
+        <label>Note bullets (one per line)<textarea id="sopBullets" rows="5" required>**For checks covering common infrastructure / tool and shared components** such as Dynatrace, teams should refer to the Operational Manual, which serves as the governing reference for these areas.
+**For checks which are specific to individual applications** such as those involving application-specific consoles, dashboards, or proprietary monitoring tools — teams are required to maintain supplementary SOPs detailing the steps for performing these checks. These SOPs must be kept current and made available for audit purposes.</textarea></label>
+        <label>Section 1.1 title<input id="sop11Title" value="Section 1.1: Availability of Application-Specific SOP for Preventive Monitoring" required></label>
+        <div class="two-col"><label>"Completed" label<input id="sopCompleted" value="Completed" required></label><label>"Not Applicable" label<input id="sopNA" value="Not Applicable" required></label></div>
+        <fieldset class="check-group stack"><legend>Completed</legend>
+          <label class="check"><input type="checkbox" id="sopOptDoc"> <span id="sopOptDocText">Document detail is provided in the table below.</span></label>
+          <label class="check"><input type="checkbox" id="sopOptWorking"> <span id="sopOptWorkingText">I do have application-specific monitoring checks, and I am currently working on the SOP documentation. Complete the declaration below.</span></label>
+        </fieldset>
+        <fieldset class="check-group stack"><legend>Not Applicable</legend>
+          <label class="check"><input type="checkbox" id="sopOptNA"> <span id="sopOptNAText">I do not have any application-specific monitoring checks, and I am entirely following the Operation Manual document to conduct the monitoring checks.</span></label>
+        </fieldset>
+        <label>Document table headings (6 lines: S/N, Document Name, Document Link, Version, Checklist, Remarks)<textarea id="sopHeaders" rows="6" required>**S/N**
+**Document Name**
+**Document Link in**;;[[Synapxe Policy and Procedures Portal|https://policy.intranet.synapxe/General/default.aspx]]
+**Version**
+**Checklist**
+**Remarks**</textarea></label>
+        <div class="row-editor-head"><strong>Documents</strong><span class="muted">One box per document. Each document gets the two checklist questions, answered by the dropdowns.</span></div>
+        <div id="sopDocsEditor" class="row-editor" data-store="sopDocs" data-cols="S/N|Document Name|Document Link|Version|Is the document up to date?|Are you using Synapxe document template?" data-rows="1|2|2|1|1|1" data-group="4:Checklist" data-selects='{"4":[["{{Choose an item.}}","Choose an item."],["Yes","Yes"],["No. Will update this within 7 days","No. Will update this within 7 days"],["No. Reason updated under \"Remarks\"","No. Reason updated under \"Remarks\""]],"5":[["{{Choose an item.}}","Choose an item."],["Yes","Yes"],["No. Will update this within 7 days","No. Will update this within 7 days"],["No. Reason updated under \"Remarks\"","No. Reason updated under \"Remarks\""]]}' data-defaults="||||{{Choose an item.}}|{{Choose an item.}}"></div>
+        <button type="button" class="button secondary row-add" data-editor="sopDocsEditor">+ Add document</button>
+        <textarea id="sopDocs" hidden>1 |  |  |  | {{Choose an item.}} | {{Choose an item.}}
+2 |  |  |  | {{Choose an item.}} | {{Choose an item.}}</textarea>
+        <div class="two-col"><label>Declaration label<input id="sopDeclLabel" value="**__Declaration__**" required></label><label>Declaration intro<input id="sopDeclIntro" value="I declare and confirm that" required></label></div>
+        <fieldset class="check-group stack"><legend>Declaration</legend>
+          <label class="check"><input type="checkbox" id="sopDeclChk"> <span id="sopDeclChkText" data-rich="I ~~**do not have SOP / Work Instructions / Guides**~~ for my application-specific monitoring checks. I have already escalated this to my Service Lead which includes target timeline for completion.">I do not have SOP / Work Instructions / Guides for my application-specific monitoring checks. I have already escalated this to my Service Lead which includes target timeline for completion.</span></label>
+        </fieldset>
+        <label>Declaration – attachment note<input id="sopDeclAttach" value="{{&lt;Attach detail with reason and Service Lead's Approval / Acknowledgement. &gt;}}"></label>
+      </section>
+      <section class="wizard-step" data-step="7" data-hidden><h4>8. Section 2.0 – Health check &amp; frequency table (landscape page)</h4><p class="muted">Section banner, two paragraphs, the intro line and the log-review frequency illustration table. Table rows use <code>Frequency | Logs to review | Period | Duration</code>, one per line. Same markers as step 9.</p>
+        <label>Section banner<input id="healthTitle" value="Section 2.0: Health Check" required></label>
+        <label>Paragraph 1<textarea id="healthPara1" rows="3" required>The **Health Check** is to be performed on regular basis based on the frequency in KTLO Calculator. The activity is to monitor the health of application based on the **Means** stated below. The aim is to identify problems or errors found in the application and analyse them and work out the solution/remediation to fix the problem in order to minimise any impact to the user operations.</textarea></label>
+        <label>Paragraph 2<textarea id="healthPara2" rows="4" required>The table below is for the support staff to document the information of health monitoring checks performed. Based on the **Means** stated below, enter the details of each check performed. It is important to provide **Health Status** to indicate the outcome of the health check and provide **__Artefact__** __to show the system health information with timestamp__. **The health check is to perform only on __weekday__, excluding public holidays and weekend.**</textarea></label>
+        <label>Intro above table<textarea id="freqIntro" rows="2" required>Application teams should review ~~**__only 1 day's worth of logs__**~~ regardless of frequency and in accordance with the period stipulated in the KTLO requirements. Kindly refer to the below illustration below for your reference</textarea></label>
+        <div class="two-col"><label>Column: Frequency<input id="colFreq" value="Frequency" required></label><label>Column: Logs to review<input id="colLogs" value="Logs to review" required></label></div>
+        <label>"For illustration Purpose" header (spans last 3 columns)<input id="colIllus" value="For illustration Purpose" required></label>
+        <div class="two-col"><label>Sub-column: Period<input id="colPeriod" value="Period of Frequency" required></label><label>Sub-column: Duration<input id="colDuration" value="Duration of Logs to be Extracted and Reviewed - only 1 day worth of logs" required></label></div>
+        <label>Sub-column: Remark<input id="colRemark" value="Remark" required></label>
+        <label>Table rows (Frequency | Logs to review | Period | Duration), one per line<textarea id="freqRows" rows="5" required>**Daily** | **On previous working day,** e.g. review on Monday for the logs created on Friday | 19 Sep 2025 | 18 Sep 2025 00:00 - 23:59
+**Weekly** | **Any weekday within the week,** i.e. any working day from Monday to Friday (excluding public holidays) | 22 – 26 Sep 2025 | 24 Sep 2025 00:00 - 23:59
+**Monthly** | **Any weekday within the month**, i.e. any working day within first to last day of the month. | 1 - 30 Sep 2025 | 10 Sep 2025 00:00 - 23:59</textarea></label>
+        <label>Remark (spans all data rows, right column)<textarea id="freqRemark" rows="2" required>Date selected for log review must fall within the period of frequency</textarea></label>
+      </section>
+      <section class="wizard-step" data-step="8"><h4>A. Essential</h4>
+        <label>Date of Execution<input id="execValue" type="date"></label>
+        <div class="row-editor-head"><strong>Table rows</strong></div>
+        <div id="execRowsEditor" class="row-editor" data-store="execRows" data-titles='["Application Logs","Application Logs","Dynatrace - Problem Alerts","Interface Logs","Interface Logs","DB Replication"]' data-fixed data-box="7-8" data-cols="Name / Location|Server(s) / Component(s)|Health Status|Remark|No errors found|Errors found|ServiceNow Ticket No|Duration From|Duration To" data-rows="3|3|3|3|1|1|1|1|1" data-checks="4|5" data-times='{"7":"00:00","8":"23:59"}' data-selects='{"0":[["{{Choose an item.}}","Choose an item."],["Dynatrace","Dynatrace"],["App log files in servers","App log files in servers"],["Dynatrace APM","Dynatrace APM"],["Not Applicable","Not Applicable"]],"2":[["{{Choose an item.}}","Choose an item."],["Good (No Error Found)","Good (No Error Found)"],["Fair (Minor Errors Found)","Fair (Minor Errors Found)"],["Bad (Errors Found)","Bad (Errors Found)"],["Unknown","Unknown"]]}' data-group="4:Errors &amp; artefact block" data-defaults="{{Choose an item.}}||{{Choose an item.}}||||||"></div>
+        <textarea id="execRows" hidden>{{Choose an item.}} |  | {{Choose an item.}} |  |  |  |  |  | 
+{{Choose an item.}} |  | {{Choose an item.}} |  |  |  |  |  | 
+ |  | {{Choose an item.}} |  |  |  |  |  | 
+{{Choose an item.}} |  | {{Choose an item.}} |  |  |  |  |  | 
+{{Choose an item.}} |  | {{Choose an item.}} |  |  |  |  |  | 
+ |  | {{Choose an item.}} |  |  |  |  |  | </textarea>
+      </section>
+      <section class="wizard-step" data-step="9"><h4>B. Essential</h4>
+        <div class="row-editor-head"><strong>Table rows</strong></div>
+        <div id="batchRowsEditor" class="row-editor" data-store="batchRows" data-box="9-10" data-cols="SN|Name of Batch Job|Batch Job Logs File Path|Server(s) / Component(s)|Health Status|Remark|No errors found|Errors found|ServiceNow Ticket No|Duration From|Duration To" data-rows="1|2|2|2|1|2|1|1|1|1|1" data-group="6:Errors &amp; artefact block" data-checks="6|7" data-times='{"9":"00:00","10":"23:59"}' data-selects='{"4":[["{{Choose an item.}}","Choose an item."],["Good (No Error Found)","Good (No Error Found)"],["Fair (Minor Errors Found)","Fair (Minor Errors Found)"],["Bad (Errors Found)","Bad (Errors Found)"],["Unknown","Unknown"]]}' data-defaults="||||{{Choose an item.}}||||||"></div>
+        <button type="button" class="button secondary row-add" data-editor="batchRowsEditor">+ Add row</button>
+        <textarea id="batchRows" hidden>1 |  |  |  | {{Choose an item.}} |  |  |  |  |  | 
+2 |  |  |  | {{Choose an item.}} |  |  |  |  |  | 
+3 |  |  |  | {{Choose an item.}} |  |  |  |  |  | </textarea>
+      </section>
+      <section class="wizard-step" data-step="10"><h4>C. Optional</h4>
+        <div class="row-editor-head"><strong>Table rows</strong></div>
+        <div id="errRowsEditor" class="row-editor" data-store="errRows" data-box="9-10" data-cols="SN|Means|Name / Location|Server(s) / Component(s)|Health Status|Remark|No errors found|Errors found|ServiceNow Ticket No|Duration From|Duration To" data-rows="1|1|2|2|1|2|1|1|1|1|1" data-group="6:Errors &amp; artefact block" data-checks="6|7" data-times='{"9":"00:00","10":"23:59"}' data-selects='{"1":[["{{Choose an item.}}","Choose an item."],["Application Log","Application Log"],["DB Alert Log","DB Alert Log"],["Interface Log","Interface Log"],["Batch Jobs","Batch Jobs"],["App Dashboard/Console","App Dashboard/Console"],["eG Monitoring","eG Monitoring"],["Dynatrace APM","Dynatrace APM"],["DB Table &amp; Archive Space","DB Table &amp; Archive Space"],["DB Replication","DB Replication"]],"4":[["{{Choose an item.}}","Choose an item."],["Good (No Error Found)","Good (No Error Found)"],["Fair (Minor Errors Found)","Fair (Minor Errors Found)"],["Bad (Errors Found)","Bad (Errors Found)"],["Unknown","Unknown"]]}' data-defaults="|{{Choose an item.}}|||{{Choose an item.}}||||||"></div>
+        <button type="button" class="button secondary row-add" data-editor="errRowsEditor">+ Add row</button>
+        <textarea id="errRows" hidden>1 | {{Choose an item.}} |  |  | {{Choose an item.}} |  |  |  |  |  | 
+2 | {{Choose an item.}} |  |  | {{Choose an item.}} |  |  |  |  |  | 
+3 | {{Choose an item.}} |  |  | {{Choose an item.}} |  |  |  |  |  | </textarea>
+      </section>
+      <section class="wizard-step" data-step="11"><h4>Section 3.0: Declaration for Use of Enterprise Vulnerability Management System (EVMS) Tool</h4>
+        <fieldset class="declaration-group"><legend>Declaration</legend>
+        <fieldset class="check-group stack"><legend>Option 1</legend>
+          <label class="check"><input type="checkbox" id="evmsOpt1" checked> <span id="evmsOpt1Text">All my servers have onboarded in or installed with the selected EVMS tool(s) below.</span></label>
+          <label class="check indent"><input type="checkbox" id="evmsTenable" checked> Tenable</label>
+          <label class="check indent"><input type="checkbox" id="evmsNgess" checked> NGESS</label>
+          <label class="check indent"><input type="checkbox" id="evmsAws"> AWS Inspector</label>
+          <label class="check indent others-row"><input type="checkbox" id="evmsOthers"> Others, <input type="text" id="evmsOthersNote" placeholder="Please specify"></label>
+        </fieldset>
+        <fieldset class="check-group stack"><legend>Option 2</legend>
+          <label class="check"><input type="checkbox" id="evmsOpt2"> <span id="evmsOpt2Text">I have identified that there are servers not onboarded in or installed with any EVMS tool(s), and I have attached PD's approval with the reasons.</span></label>
+        </fieldset>
+        </fieldset>
+      </section>
+      <section class="wizard-step" data-step="12"><h4>Section 4.0: Application Monitoring Declaration and Acknowledgement</h4>
+        <fieldset class="declaration-group"><legend>Declaration</legend>
+        <fieldset class="check-group stack"><legend>Option 1</legend>
+          <label class="check"><input type="checkbox" id="decA1" checked> <span id="decA1Text">The health check of my application software has been performed in accordance with the agreed frequency and scope of activity and SOP.</span></label>
+          <label class="check"><input type="checkbox" id="decA2" checked> <span id="decA2Text">I have confirmed that I have reviewed the relevant logs to identify any errors or exceptions. The supporting artefacts I have attached are complete and accurate, and I understand their purpose and how do they fulfil the defined monitoring requirements.</span></label>
+          <label class="check"><input type="checkbox" id="decA3" checked> <span id="decA3Text">I can explain what each artefact is about, and the data point represents, including how do these artefacts support the review of required error logs, anomalies, and exceptions.</span></label>
+          <label class="check"><input type="checkbox" id="decA4" checked> <span id="decA4Text">For any non-compliance in Option 1, I have escalated to Service Lead and attached Service Lead acknowledgement.</span></label>
+        </fieldset>
+        <fieldset class="check-group stack"><legend>Option 2</legend>
+          <label class="check"><input type="checkbox" id="decB1"> <span id="decB1Text">The health check of my application software is not carried out in accordance with the agreed frequency and scope of activity and SOP. The details of area not completed with reason __is__ stated in the attached artefact with Service Lead’s approval.</span></label>
+        </fieldset>
+        </fieldset>
+        <fieldset class="declaration-group"><legend>Acknowledgement</legend>
+        <div class="check-group stack">
+          <label class="check"><input type="checkbox" id="ackA1" checked> <span id="ackA1Text">I acknowledge that neglecting errors in logs can pose resiliency risk to the stability of the system.</span></label>
+          <label class="check"><input type="checkbox" id="ackA2" checked> <span id="ackA2Text">I acknowledge that I would follow up on the application errors and in situations where I am uncertain who will follow up, then I am responsible to escalate my reporting FA chain of command until I am informed of the assigned FA to follow up.</span></label>
+          <label class="check"><input type="checkbox" id="ackA3" checked> <span id="ackA3Text">I acknowledge my responsibility to ensure that any identified issues or exceptions are clearly documented and followed up in accordance with established procedures as part of the AMS management.</span></label>
+        </div>
+        </fieldset>
+        <fieldset class="declaration-group"><legend>Please verify</legend>
+        <div class="check-group stack">
+          <label class="check"><input type="checkbox" id="ackV1" checked> <span id="ackV1Text">All the Servers (both Production and Non-Production) in relation to the Application ID is captured in ServiceNow CMDB module and with the relationship mapped to the Application ID.</span></label>
+        </div>
+        </fieldset>
+      </section>
+      <section class="wizard-step" data-step="13"><h4>Application monitoring sign-off</h4>
+        <fieldset class="person-group"><legend>9.1 Completed by FA</legend>
+          <div class="three-col"><label>Name<input id="sign1Name"></label><label>Designation<input id="sign1Des"></label><label>Email<input id="sign1Email"></label></div>
+        </fieldset>
+        <fieldset class="person-group"><legend>9.2 Reviewed by Team Lead or Manager (JG6 and Above)</legend>
+          <div class="three-col"><label>Name<input id="sign2Name"></label><label>Designation<input id="sign2Des"></label><label>Email<input id="sign2Email"></label></div>
+        </fieldset>
+        <fieldset class="person-group"><legend>9.3 Approved by Service Lead</legend>
+          <div class="three-col"><label>Name<input id="sign3Name"></label><label>Designation<input id="sign3Des"></label><label>Email<input id="sign3Email"></label></div>
+        </fieldset>
+      </section>
+      <div class="wizard-actions"><button type="button" class="button secondary" id="backBtn" disabled>Back</button><div class="spacer"></div><button type="button" class="button primary" id="nextBtn">Next</button><button type="submit" class="button primary hidden" id="generateBtn">Generate editable DOCX</button></div>
+    </form>
+    <div id="status" class="status" role="status" aria-live="polite"></div>
+  </section>
+  <footer>Runs in your browser. No database or application backend is used.</footer>
+</main><script src="app.js"></script>
+</body></html>
